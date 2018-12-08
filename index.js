@@ -1,9 +1,10 @@
 const express = require('express');
+const cors = require('cors');
 const data = require('./data');
 
 const app = express();
 
-app.get('/', function (req, res) {
+app.get('/', cors(), function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     res.send(JSON.stringify(data));
 });
