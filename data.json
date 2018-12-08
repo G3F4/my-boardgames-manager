@@ -1,0 +1,31 @@
+{
+  "list": [{
+    "title": "Dixit",
+    "description": "adas asdasd asdsad",
+    "publisher": "Ergo",
+    "category": "CARDS",
+    "players": [2, 6],
+    "status": "HOME"
+  }, {
+    "title": "Scrabble",
+    "description": "adas asdasd asdsad",
+    "publisher": "Ergo",
+    "category": "LOGIC",
+    "players": [2, 4],
+    "status": "BORROWED"
+  }, {
+    "title": "Chińczyk",
+    "description": "adas asdasd asdsad",
+    "publisher": "Ergo",
+    "category": "LOGIC",
+    "players": [2],
+    "status": "WISH"
+  }, {
+    "title": "1000 gier",
+    "description": "adas asdasd asdsad",
+    "publisher": "Ergo",
+    "category": "OTHER",
+    "players": [2, 100],
+    "status": "LOST"
+  }]
+}
