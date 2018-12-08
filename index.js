@@ -1,10 +1,17 @@
 const express = require('express');
 const cors = require('cors');
+const bodyParser = require('body-parser');
+
 const data = require('./data');
 
 const app = express();
 
-app.get('/', cors(), function (req, res) {
+app.use(cors());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.options('*', cors());
+
+app.get('/', function (req, res) {
   const sortBy = req.query.sortBy;
   const title = req.query.title;
   const sortedData = {
@@ -29,6 +36,13 @@ app.get('/', cors(), function (req, res) {
 
   res.setHeader('Content-Type', 'application/json');
   res.send(JSON.stringify(sortedData));
+});
+
+app.put('/', function (req, res) {
+  data.list = [req.body, ...data.list];
+
+  res.setHeader('Content-Type', 'application/json');
+  res.send(JSON.stringify(req.body));
 });
 
 app.listen(3000);
