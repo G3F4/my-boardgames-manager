@@ -10,6 +10,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
+import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
@@ -19,28 +20,38 @@ class App extends Component {
   state = {
     data: null,
     sortBy: '',
+    title: ''
   };
 
   componentDidMount() {
     const params = new URLSearchParams(window.location.search);
     const sortBy = params.get('sortBy');
+    const title = params.get('title');
 
-    this.fetchList(sortBy);
+    this.fetchList(sortBy, title);
   }
 
-  fetchList(sortBy) {
-    return fetch(`${SERVER_HOST}?sortBy=${sortBy}`)
+  fetchList(sortBy, title) {
+    return fetch(`${SERVER_HOST}?sortBy=${sortBy}&title=${title}`)
       .then(response => response.json())
-      .then(data => this.setState({ data, sortBy }))
+      .then(data => this.setState({ data, sortBy, title }))
       .catch(error => console.error(error))
   }
 
   handleSortByChange = event => {
     const sortBy = event.target.value;
+    const query = `?sortBy=${sortBy}&title=${this.state.title}`;
 
-    this.fetchList(sortBy).then(() => {
-      window.history.pushState(null, null, `?sortBy=${sortBy}`);
-    });
+    window.history.pushState(null, null, query);
+    this.fetchList(sortBy, this.state.title);
+  };
+
+  handleTitleFilterChange = event => {
+    const title = event.target.value;
+    const query = `?sortBy=${this.state.sortBy}&title=${title}`;
+
+    window.history.pushState(null, null, query);
+    this.fetchList(this.state.sortBy, title);
   };
 
   render() {
@@ -50,6 +61,8 @@ class App extends Component {
       );
     }
 
+    const { sortBy, title } = this.state;
+
     return (
       <div>
         <AppBar position="static" color="default">
@@ -58,7 +71,7 @@ class App extends Component {
               <FormControl style={{ width: 150 }}>
                 <InputLabel htmlFor="sortBy">Sortowanie</InputLabel>
                 <Select
-                  value={this.state.sortBy || ''}
+                  value={sortBy || ''}
                   onChange={this.handleSortByChange}
                   inputProps={{
                     name: 'sortBy',
@@ -69,6 +82,14 @@ class App extends Component {
                   <MenuItem value="publisher">Wydawca</MenuItem>
                   <MenuItem value="category">Kategoria</MenuItem>
                 </Select>
+              </FormControl>
+              <FormControl style={{ width: 150, marginTop: 0 }}>
+                <TextField
+                  value={title}
+                  style={{ marginLeft: 16 }}
+                  label="Tytuł"
+                  onChange={this.handleTitleFilterChange}
+                />
               </FormControl>
             </form>
           </Toolbar>

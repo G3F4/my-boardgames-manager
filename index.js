@@ -6,22 +6,25 @@ const app = express();
 
 app.get('/', cors(), function (req, res) {
   const sortBy = req.query.sortBy;
+  const title = req.query.title;
   const sortedData = {
-    list: data.list.sort((a, b) => {
-      const aValue = a[sortBy];
-      const bValue = b[sortBy];
+    list: data.list
+      .filter(item => item.title.toLowerCase().startsWith(title.toLowerCase()))
+      .sort((a, b) => {
+        const aValue = a[sortBy];
+        const bValue = b[sortBy];
 
-      if (aValue && bValue) {
-        if (aValue < bValue) {
-          return -1;
+        if (aValue && bValue) {
+          if (aValue < bValue) {
+            return -1;
+          }
+          if (aValue > bValue) {
+            return 1;
+          }
         }
-        if (aValue > bValue) {
-          return 1;
-        }
-      }
 
-      return 0;
-    })
+        return 0;
+      })
   };
 
   res.setHeader('Content-Type', 'application/json');
