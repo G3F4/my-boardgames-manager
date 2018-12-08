@@ -136,10 +136,7 @@ class App extends Component {
               <Select
                 value={sortBy || ''}
                 onChange={this.handleSortByChange}
-                inputProps={{
-                  name: 'sortBy',
-                  id: 'sortBy',
-                }}
+                inputProps={{ id: 'sortBy' }}
               >
                 <MenuItem value="title">Tytuł</MenuItem>
                 <MenuItem value="publisher">Wydawca</MenuItem>
@@ -157,10 +154,7 @@ class App extends Component {
             </Fab>
           </Toolbar>
         </AppBar>
-        <Dialog
-          open={this.state.addDialogOpen}
-          onClose={this.handleCloseAddDialog}
-        >
+        <Dialog open={this.state.addDialogOpen} onClose={this.handleCloseAddDialog}>
           <DialogTitle>Dodaj nową pozycję</DialogTitle>
           <DialogContent>
             <TextField label="Tytuł" onChange={this.handleNewGameTitleChange} autoFocus fullWidth />
@@ -174,9 +168,7 @@ class App extends Component {
               <Select
                 value={this.state.newGame.status || ''}
                 onChange={this.handleNewGameStatusChange}
-                inputProps={{
-                  id: 'status',
-                }}
+                inputProps={{ id: 'status' }}
               >
               {Object.keys(STATUSES_MAP).map(key => (
                 <MenuItem value={key}>{STATUSES_MAP[key]}</MenuItem>
@@ -185,12 +177,8 @@ class App extends Component {
             </FormControl>
           </DialogContent>
           <DialogActions>
-            <Button onClick={this.handleCloseAddDialog} color="secondary">
-              Anuluj
-            </Button>
-            <Button onClick={this.handleNewGameAdd} color="primary">
-              Dodaj
-            </Button>
+            <Button onClick={this.handleCloseAddDialog} color="secondary">Anuluj</Button>
+            <Button onClick={this.handleNewGameAdd} color="primary">Dodaj</Button>
           </DialogActions>
         </Dialog>
         <Grid style={{ padding: 24 }} container spacing={24}>
@@ -206,24 +194,12 @@ class App extends Component {
                   title={game.title}
                 />
                 <CardContent>
-                  <Typography gutterBottom variant="h5" component="h2">
-                    {game.title}
-                  </Typography>
-                  <Typography component="p">
-                    Status: {STATUSES_MAP[game.status]}
-                  </Typography>
-                  <Typography component="p">
-                    Opis: {game.description}
-                  </Typography>
-                  <Typography component="p">
-                    Ilość graczy: {game.players}
-                  </Typography>
-                  <Typography component="p">
-                    Wydawca: {game.publisher}
-                  </Typography>
-                  <Typography component="p">
-                    Kategoria: {game.category}
-                  </Typography>
+                  <Typography gutterBottom variant="h5" component="h2">{game.title}</Typography>
+                  <Typography component="p">Status: {STATUSES_MAP[game.status]}</Typography>
+                  <Typography component="p">Opis: {game.description}</Typography>
+                  <Typography component="p">Ilość graczy: {game.players}</Typography>
+                  <Typography component="p">Wydawca: {game.publisher}</Typography>
+                  <Typography component="p">Kategoria: {game.category}</Typography>
                 </CardContent>
               </CardActionArea>
             </Card>
