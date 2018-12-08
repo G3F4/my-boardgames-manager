@@ -3,29 +3,33 @@
     "title": "Dixit",
     "description": "adas asdasd asdsad",
     "publisher": "Ergo",
-    "category": "CARDS",
+    "category": "Karcianka",
     "players": [2, 6],
-    "status": "HOME"
+    "status": "HOME",
+    "image": "https://proxy.duckduckgo.com/iu/?u=http%3A%2F%2Fjuegosmesa.cl%2F246-large_default%2Fdixit.jpg&f=1"
   }, {
     "title": "Scrabble",
     "description": "adas asdasd asdsad",
     "publisher": "Ergo",
-    "category": "LOGIC",
+    "category": "Logiczna",
     "players": [2, 4],
-    "status": "BORROWED"
+    "status": "BORROWED",
+    "image": "https://proxy.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.jugonesweb.com%2Fwp-content%2Fuploads%2F2015%2F12%2Fscrabble.jpg&f=1"
   }, {
     "title": "Chińczyk",
     "description": "adas asdasd asdsad",
     "publisher": "Ergo",
-    "category": "LOGIC",
+    "category": "Logiczna",
     "players": [2],
-    "status": "WISH"
+    "status": "WISH",
+    "image": "https://proxy.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.taniaksiazka.pl%2Fimages%2Fpopups%2FBFE%2F5906018013597.jpg&f=1"
   }, {
-    "title": "1000 gier",
+    "title": "100 gier",
     "description": "adas asdasd asdsad",
     "publisher": "Ergo",
-    "category": "OTHER",
+    "category": "Inne",
     "players": [2, 100],
-    "status": "LOST"
+    "status": "LOST",
+    "image": "https://proxy.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.gandalf.com.pl%2Fo%2Fzestaw-100-gier%2Cbig%2C310712.jpg&f=1"
   }]
 }
