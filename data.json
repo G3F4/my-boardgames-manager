@@ -10,7 +10,7 @@
   }, {
     "title": "Scrabble",
     "description": "adas asdasd asdsad",
-    "publisher": "Ergo",
+    "publisher": "Smergo",
     "category": "Logiczna",
     "players": [2, 4],
     "status": "BORROWED",
@@ -18,7 +18,7 @@
   }, {
     "title": "Chińczyk",
     "description": "adas asdasd asdsad",
-    "publisher": "Ergo",
+    "publisher": "Hasbro",
     "category": "Logiczna",
     "players": [2],
     "status": "WISH",
