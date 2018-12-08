@@ -3,6 +3,25 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 
 const data = require('./data');
+const getData = (sortBy, title) => ({
+  list: data.list
+    .filter(item => item.title.toLowerCase().startsWith(title.toLowerCase()))
+    .sort((a, b) => {
+      const aValue = a[sortBy];
+      const bValue = b[sortBy];
+
+      if (aValue && bValue) {
+        if (aValue < bValue) {
+          return -1;
+        }
+        if (aValue > bValue) {
+          return 1;
+        }
+      }
+
+      return 0;
+    })
+});
 
 const app = express();
 
@@ -11,38 +30,24 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.options('*', cors());
 
-app.get('/', function (req, res) {
+app.get('/games', function (req, res) {
   const sortBy = req.query.sortBy;
   const title = req.query.title;
-  const sortedData = {
-    list: data.list
-      .filter(item => item.title.toLowerCase().startsWith(title.toLowerCase()))
-      .sort((a, b) => {
-        const aValue = a[sortBy];
-        const bValue = b[sortBy];
-
-        if (aValue && bValue) {
-          if (aValue < bValue) {
-            return -1;
-          }
-          if (aValue > bValue) {
-            return 1;
-          }
-        }
-
-        return 0;
-      })
-  };
 
   res.setHeader('Content-Type', 'application/json');
-  res.send(JSON.stringify(sortedData));
+  res.send(JSON.stringify(getData(sortBy, title)));
 });
 
-app.put('/', function (req, res) {
-  data.list = [req.body, ...data.list];
+app.post('/games', function (req, res) {
+  const { newGame, sortBy, title } = req.body;
+
+  data.list = [{
+    id: (data.list.length + 1).toString(),
+    ...newGame,
+  }, ...data.list];
 
   res.setHeader('Content-Type', 'application/json');
-  res.send(JSON.stringify(req.body));
+  res.send(JSON.stringify(getData(sortBy, title)));
 });
 
 app.listen(3000);

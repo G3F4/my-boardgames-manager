@@ -21,7 +21,19 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import AddIcon from '@material-ui/icons/Add';
 import Button from '@material-ui/core/Button';
 
-const SERVER_HOST = 'http://localhost:3000/';
+const SERVER_HOST = 'http://localhost:3000/games';
+const STATUSES = {
+  HOME: 'HOME',
+  BORROWED: 'BORROWED',
+  WISH: 'WISH',
+  LOST: 'LOST',
+};
+const STATUSES_MAP = {
+  [STATUSES.HOME]: 'W domu',
+  [STATUSES.BORROWED]: 'Pożyczona',
+  [STATUSES.WISH]: 'Lista życzeń',
+  [STATUSES.LOST]: 'Zgubiona',
+};
 
 class App extends Component {
   state = {
@@ -34,8 +46,8 @@ class App extends Component {
 
   componentDidMount() {
     const params = new URLSearchParams(window.location.search);
-    const sortBy = params.get('sortBy');
-    const title = params.get('title');
+    const sortBy = params.get('sortBy') || '';
+    const title = params.get('title') || '';
 
     this.fetchList(sortBy, title);
   }
@@ -63,77 +75,44 @@ class App extends Component {
     this.fetchList(this.state.sortBy, title);
   };
 
-  handleOpenAddDialog = () => {
-    console.log(['handleOpenAddDialog'])
-    this.setState({ addDialogOpen: true });
-  };
+  handleOpenAddDialog = () => this.setState({ addDialogOpen: true });
 
-  handleCloseAddDialog = () => {
-    console.log(['handleCloseAddDialog'], this.state.newGame)
-    this.setState({ addDialogOpen: false });
-  };
+  handleCloseAddDialog = () => this.setState({ addDialogOpen: false });
 
-  handleNewGameTitleChange = event => this.setState({
-    newGame: {
-      ...this.state.newGame,
-      title: event.target.value,
-    }
-  });
+  handleNewGameChange(key, value) {
+    this.setState({
+      newGame: {
+        ...this.state.newGame,
+        [key]: value,
+      }
+    });
+  }
 
-  handleNewGameDescriptionChange = event => this.setState({
-    newGame: {
-      ...this.state.newGame,
-      description: event.target.value,
-    }
-  });
+  handleNewGameTitleChange = event => this.handleNewGameChange('title', event.target.value);
 
-  handleNewGamePlayersChange = event => this.setState({
-    newGame: {
-      ...this.state.newGame,
-      players: event.target.value,
-    }
-  });
+  handleNewGameDescriptionChange = event => this.handleNewGameChange('description', event.target.value);
 
-  handleNewGamePublisherChange = event => this.setState({
-    newGame: {
-      ...this.state.newGame,
-      publisher: event.target.value,
-    }
-  });
+  handleNewGamePlayersChange = event => this.handleNewGameChange('players', event.target.value);
 
-  handleNewGameCategoryChange = event => this.setState({
-    newGame: {
-      ...this.state.newGame,
-      category: event.target.value,
-    }
-  });
+  handleNewGamePublisherChange = event => this.handleNewGameChange('publisher', event.target.value);
 
-  handleNewGameImageChange = event => this.setState({
-    newGame: {
-      ...this.state.newGame,
-      image: event.target.value,
-    }
-  });
+  handleNewGameCategoryChange = event => this.handleNewGameChange('category', event.target.value);
 
-  handleNewGameStatusChange = event => this.setState({
-    newGame: {
-      ...this.state.newGame,
-      status: event.target.value,
-    }
-  });
+  handleNewGameImageChange = event => this.handleNewGameChange('image', event.target.value);
+
+  handleNewGameStatusChange = event => this.handleNewGameChange('status', event.target.value);
 
   handleNewGameAdd = () => {
+    const { newGame, sortBy, title } = this.state;
+
     fetch(SERVER_HOST, {
-      method: 'PUT',
+      method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(this.state.newGame),
+      body: JSON.stringify({ newGame, sortBy, title }),
     })
       .then(response => response.json())
-      .then(newGame => this.setState({
-        data: {
-          ...this.state.data,
-          list: [newGame, ...this.state.data.list]
-        },
+      .then(data => this.setState({
+        data,
         addDialogOpen: false,
       }))
       .catch(error => console.error(error))
@@ -169,11 +148,11 @@ class App extends Component {
             </FormControl>
             <TextField
               value={title}
-              style={{ width: 150, marginLeft: 16 }}
+              style={{ width: 150, marginLeft: 24 }}
               label="Tytuł"
               onChange={this.handleTitleFilterChange}
             />
-            <Fab color="secondary" style={{ position: 'absolute', right: 0 }}>
+            <Fab color="secondary" style={{ position: 'absolute', right: 0, marginRight: 24 }}>
               <AddIcon onClick={this.handleOpenAddDialog}/>
             </Fab>
           </Toolbar>
@@ -196,14 +175,12 @@ class App extends Component {
                 value={this.state.newGame.status || ''}
                 onChange={this.handleNewGameStatusChange}
                 inputProps={{
-                  name: 'status',
                   id: 'status',
                 }}
               >
-                <MenuItem value="HOME">W kolekcji</MenuItem>
-                <MenuItem value="BORROWED">Pożyczona</MenuItem>
-                <MenuItem value="WISH">Lista życzeń</MenuItem>
-                <MenuItem value="LOST">Zgubiona</MenuItem>
+              {Object.keys(STATUSES_MAP).map(key => (
+                <MenuItem value={key}>{STATUSES_MAP[key]}</MenuItem>
+              ))}
               </Select>
             </FormControl>
           </DialogContent>
@@ -217,13 +194,12 @@ class App extends Component {
           </DialogActions>
         </Dialog>
         <Grid style={{ padding: 24 }} container spacing={24}>
-        {this.state.data.list.map((game, index) => (
-          <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
+        {this.state.data.list.map((game) => (
+          <Grid item xs={12} sm={6} md={4} lg={3} key={game.id}>
             <Card>
               <CardActionArea>
                 <CardMedia
                   component="img"
-                  alt="Contemplative Reptile"
                   height="200"
                   style={{ objectFit: 'contain' }}
                   image={game.image}
@@ -232,6 +208,9 @@ class App extends Component {
                 <CardContent>
                   <Typography gutterBottom variant="h5" component="h2">
                     {game.title}
+                  </Typography>
+                  <Typography component="p">
+                    Status: {STATUSES_MAP[game.status]}
                   </Typography>
                   <Typography component="p">
                     Opis: {game.description}
