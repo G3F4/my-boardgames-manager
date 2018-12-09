@@ -14,17 +14,17 @@ app.options('*', cors());
 
 app.get('/games', async (req, res) => {
   const sortBy = req.query.sortBy;
-  // const title = req.query.title;
-  const list = await getGames(sortBy);
+  const title = req.query.title;
+  const list = await getGames(sortBy, title);
 
   res.setHeader('Content-Type', 'application/json');
   res.send(JSON.stringify({ list }));
 });
 
 app.post('/games', async (req, res) => {
-  const { newGame, sortBy/*, title*/ } = req.body;
+  const { newGame, sortBy, title } = req.body;
   await addGame(newGame);
-  const list = await getGames(sortBy);
+  const list = await getGames(sortBy, title);
 
   res.setHeader('Content-Type', 'application/json');
   res.send(JSON.stringify({ list }));

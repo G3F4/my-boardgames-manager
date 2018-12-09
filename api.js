@@ -14,10 +14,10 @@ const addGame = async game => {
   }
 };
 
-const getGames = async (sortBy) => {
+const getGames = async (sortBy, title) => {
   console.log(['api:getGames']);
   try {
-    return await GameModel.find().sort({ [sortBy || '_id'] : -1 });
+    return await GameModel.find({ title: new RegExp(`^${title}`)}).sort({ [sortBy || '_id'] : -1 });
   }
 
   catch (error) {
