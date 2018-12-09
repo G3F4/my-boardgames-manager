@@ -33,7 +33,7 @@ class GameEditorDialog extends Component {
 
     return (
       <Dialog open={open} onClose={onClose}>
-        <DialogTitle>Dodaj nową pozycję</DialogTitle>
+        <DialogTitle>Edytor</DialogTitle>
         <DialogContent>
           <TextField value={title} label="Tytuł" onChange={this.handleNewGameTitleChange} autoFocus fullWidth />
           <TextField value={description} label="Opis" onChange={this.handleNewGameDescriptionChange} fullWidth />

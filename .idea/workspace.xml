@@ -2,12 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7f393629-ecdf-40e9-86a7-fe9222dde6e5" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/webResources.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/GamesHttpClient.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api.js" beforeDir="false" afterPath="$PROJECT_DIR$/api.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/GamesList.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/GamesList.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/NewGameDialog.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/GameEditorDialog.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/GameEditorDialog.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/GameEditorDialog.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/constans.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/constans.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -54,7 +54,7 @@
         <entry file="file://$PROJECT_DIR$/api.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="510">
-              <caret line="34" column="3" lean-forward="true" selection-start-line="34" selection-start-column="3" selection-end-line="34" selection-end-column="3" />
+              <caret line="34" column="3" selection-start-line="34" selection-start-column="3" selection-end-line="34" selection-end-column="3" />
             </state>
           </provider>
         </entry>
@@ -62,11 +62,17 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/client/src/App.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="621">
-              <caret line="71" selection-start-line="71" selection-end-line="71" />
-              <folding>
-                <element signature="e#0#41#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="45">
+              <caret line="3" selection-start-line="3" selection-end-line="3" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/src/GamesHttpClient.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="393">
+              <caret line="33" column="8" selection-start-line="33" selection-start-column="8" selection-end-line="33" selection-end-column="8" />
             </state>
           </provider>
         </entry>
@@ -86,8 +92,11 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/src/components/GameEditorDialog.jsx">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-12">
-              <caret line="7" column="43" lean-forward="true" selection-start-line="7" selection-start-column="43" selection-end-line="7" selection-end-column="43" />
+            <state relative-caret-position="408">
+              <caret line="35" column="27" selection-start-line="35" selection-start-column="27" selection-end-line="35" selection-end-column="27" />
+              <folding>
+                <element signature="e#0#41#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -137,6 +146,9 @@
       <find>onNewGameChange</find>
       <find>handleNewGameAdd</find>
       <find>handleNewGameChange</find>
+      <find>SERVER_HOST</find>
+      <find>this.error = e;</find>
+      <find>GamesHttpClient</find>
     </findStrings>
     <replaceStrings>
       <replace>onNewGameChange</replace>
@@ -149,6 +161,8 @@
       <replace>onChange</replace>
       <replace>handleEditedGameSave</replace>
       <replace>handleGameChange</replace>
+      <replace>this.url</replace>
+      <replace>console.error(e);</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -164,13 +178,16 @@
         <option value="$PROJECT_DIR$/client/src/components/Header.jsx" />
         <option value="$PROJECT_DIR$/client/src/components/NewGameDialog.jsx" />
         <option value="$PROJECT_DIR$/client/src/components/List.jsx" />
-        <option value="$PROJECT_DIR$/client/src/constans.js" />
         <option value="$PROJECT_DIR$/dbConnect.js" />
         <option value="$PROJECT_DIR$/GameModel.js" />
         <option value="$PROJECT_DIR$/client/src/components/GamesList.jsx" />
-        <option value="$PROJECT_DIR$/client/src/components/GameEditorDialog.jsx" />
         <option value="$PROJECT_DIR$/api.js" />
         <option value="$PROJECT_DIR$/index.js" />
+        <option value="$PROJECT_DIR$/client/src/httpClient.js" />
+        <option value="$PROJECT_DIR$/client/src/HttpClient.js" />
+        <option value="$PROJECT_DIR$/client/src/constans.js" />
+        <option value="$PROJECT_DIR$/client/src/components/GameEditorDialog.jsx" />
+        <option value="$PROJECT_DIR$/client/src/GamesHttpClient.js" />
         <option value="$PROJECT_DIR$/client/src/App.js" />
       </list>
     </option>
@@ -263,12 +280,12 @@
       <updated>1544270326549</updated>
       <workItem from="1544270327733" duration="639000" />
       <workItem from="1544271787129" duration="25731000" />
-      <workItem from="1544374953673" duration="5856000" />
+      <workItem from="1544374953673" duration="9030000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="32226000" />
+    <option name="totallyTimeSpent" value="35400000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -331,13 +348,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/data.json" />
-    <entry file="file://$PROJECT_DIR$/client/src/constans.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="15" selection-start-line="15" selection-end-line="15" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/components/Header.jsx">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="285">
@@ -376,13 +386,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/components/GameEditorDialog.jsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-12">
-          <caret line="7" column="43" lean-forward="true" selection-start-line="7" selection-start-column="43" selection-end-line="7" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/components/GamesList.jsx">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
@@ -396,7 +399,7 @@
     <entry file="file://$PROJECT_DIR$/api.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="510">
-          <caret line="34" column="3" lean-forward="true" selection-start-line="34" selection-start-column="3" selection-end-line="34" selection-end-column="3" />
+          <caret line="34" column="3" selection-start-line="34" selection-start-column="3" selection-end-line="34" selection-end-column="3" />
         </state>
       </provider>
     </entry>
@@ -407,13 +410,34 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/App.js">
+    <entry file="file://$PROJECT_DIR$/client/src/constans.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="621">
-          <caret line="71" selection-start-line="71" selection-end-line="71" />
+        <state relative-caret-position="225">
+          <caret line="15" selection-start-line="15" selection-end-line="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/GameEditorDialog.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="35" column="27" selection-start-line="35" selection-start-column="27" selection-end-line="35" selection-end-column="27" />
           <folding>
             <element signature="e#0#41#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/GamesHttpClient.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="393">
+          <caret line="33" column="8" selection-start-line="33" selection-start-column="8" selection-end-line="33" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/App.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" selection-start-line="3" selection-end-line="3" />
         </state>
       </provider>
     </entry>

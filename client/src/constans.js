@@ -12,4 +12,8 @@ export const STATUSES_MAP = {
   [STATUSES.LOST]: 'Zgubiona',
 };
 
-export const SERVER_HOST = 'http://localhost:3000/games';
+export const SERVER_HOST = 'http://localhost:3000';
+
+export const ROUTES = {
+  GAMES: '/games'
+};

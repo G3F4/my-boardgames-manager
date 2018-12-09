@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-import { SERVER_HOST } from './constans';
 import Header from './components/Header';
 import GameEditorDialog from './components/GameEditorDialog';
 import GamesList from './components/GamesList';
+import GamesHttpClient from './GamesHttpClient';
+
+const httpClient = new GamesHttpClient();
 
 class App extends Component {
   state = {
@@ -25,13 +27,14 @@ class App extends Component {
   }
 
   fetchList(sortBy, title) {
-    return fetch(`${SERVER_HOST}?sortBy=${sortBy}&title=${title}`)
-      .then(response => response.json())
-      .then(data => this.setState({ data, sortBy, title }))
-      .catch(error => console.error(error));
+    setTimeout(async () => {
+      const data = await httpClient.read(sortBy, title);
+
+      this.setState({ data, sortBy, title });
+    }, 0);
   }
 
-  handleSortByChange = event => {
+  handleSortByChange = async event => {
     const sortBy = event.target.value;
     const query = `?sortBy=${sortBy}&title=${this.state.title}`;
 
@@ -39,7 +42,7 @@ class App extends Component {
     this.fetchList(sortBy, this.state.title);
   };
 
-  handleTitleFilterChange = event => {
+  handleTitleFilterChange = async event => {
     const title = event.target.value;
     const query = `?sortBy=${this.state.sortBy}&title=${title}`;
 
@@ -72,11 +75,8 @@ class App extends Component {
     const { game, sortBy, title } = this.state;
 
     try {
-      await fetch(SERVER_HOST, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ game }),
-      });
+      await httpClient.create(game);
+
       this.handleCloseAddDialog();
       this.fetchList(sortBy, title);
     }
@@ -90,11 +90,8 @@ class App extends Component {
     const { game, sortBy, title } = this.state;
 
     try {
-      await fetch(`${SERVER_HOST}/${game._id}`, {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ game }),
-      });
+      await httpClient.update(game._id, game);
+
       this.handleCloseAddDialog();
       this.fetchList(sortBy, title);
     }
@@ -106,7 +103,8 @@ class App extends Component {
 
   handleGameDelete = async gameId => {
     try {
-      await fetch(`${SERVER_HOST}/${gameId}`, { method: 'DELETE' });
+      await httpClient.delete(gameId);
+
       this.fetchList(this.state.sortBy, this.state.title);
     }
 
