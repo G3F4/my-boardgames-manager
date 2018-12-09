@@ -2,26 +2,8 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 
-const data = require('./data');
-const getData = (sortBy, title) => ({
-  list: data.list
-    .filter(item => (item.title || '').toLowerCase().startsWith(title.toLowerCase()))
-    .sort((a, b) => {
-      const aValue = a[sortBy];
-      const bValue = b[sortBy];
-
-      if (aValue && bValue) {
-        if (aValue < bValue) {
-          return -1;
-        }
-        if (aValue > bValue) {
-          return 1;
-        }
-      }
-
-      return 0;
-    })
-});
+require('./dbConnect');
+const { addGame, getGames } = require('./api');
 
 const app = express();
 
@@ -30,24 +12,22 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.options('*', cors());
 
-app.get('/games', function (req, res) {
+app.get('/games', async (req, res) => {
   const sortBy = req.query.sortBy;
-  const title = req.query.title;
+  // const title = req.query.title;
+  const list = await getGames(sortBy);
 
   res.setHeader('Content-Type', 'application/json');
-  res.send(JSON.stringify(getData(sortBy, title)));
+  res.send(JSON.stringify({ list }));
 });
 
-app.post('/games', function (req, res) {
-  const { newGame, sortBy, title } = req.body;
-
-  data.list = [{
-    id: (data.list.length + 1).toString(),
-    ...newGame,
-  }, ...data.list];
+app.post('/games', async (req, res) => {
+  const { newGame, sortBy/*, title*/ } = req.body;
+  await addGame(newGame);
+  const list = await getGames(sortBy);
 
   res.setHeader('Content-Type', 'application/json');
-  res.send(JSON.stringify(getData(sortBy, title)));
+  res.send(JSON.stringify({ list }));
 });
 
 app.listen(3000);

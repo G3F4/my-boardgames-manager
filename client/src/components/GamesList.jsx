@@ -10,7 +10,7 @@ import { STATUSES_MAP } from '../constans';
 
 const GamesList = ({ list, }) => (
   <Grid style={{ padding: 24 }} container spacing={24}>
-    {list.map((game) => (
+    {list.map((game) => console.log(['game.image'], game.image) || (
       <Grid item xs={12} sm={6} md={4} lg={3} key={game.id}>
         <Card>
           <CardActionArea>
