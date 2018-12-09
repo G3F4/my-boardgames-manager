@@ -27,7 +27,7 @@ class App extends Component {
     return fetch(`${SERVER_HOST}?sortBy=${sortBy}&title=${title}`)
       .then(response => response.json())
       .then(data => this.setState({ data, sortBy, title }))
-      .catch(error => console.error(error))
+      .catch(error => console.error(error));
   }
 
   handleSortByChange = event => {
@@ -59,20 +59,34 @@ class App extends Component {
     });
   };
 
-  handleNewGameAdd = () => {
+  handleNewGameAdd = async () => {
     const { newGame, sortBy, title } = this.state;
 
-    fetch(SERVER_HOST, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ newGame, sortBy, title }),
-    })
-      .then(response => response.json())
-      .then(data => this.setState({
-        data,
-        addDialogOpen: false,
-      }))
-      .catch(error => console.error(error))
+    try {
+      await fetch(SERVER_HOST, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ newGame }),
+      });
+      this.handleCloseAddDialog();
+      this.fetchList(sortBy, title);
+    }
+
+    catch (error) {
+      console.error(error)
+    }
+  };
+
+  handleGameDelete = async gameId => {
+    console.log(['handleGameDelete'], { gameId });
+    try {
+      await fetch(`${SERVER_HOST}/${gameId}`, { method: 'DELETE' });
+      this.fetchList(this.state.sortBy, this.state.title);
+    }
+
+    catch (error) {
+      console.error(error)
+    }
   };
 
   render() {
@@ -100,7 +114,7 @@ class App extends Component {
           onNewGameAdd={this.handleNewGameAdd}
           onNewGameChange={this.handleNewGameChange}
         />
-        <GamesList list={this.state.data.list} />
+        <GamesList list={this.state.data.list} onDelete={this.handleGameDelete} />
       </div>
     );
   }

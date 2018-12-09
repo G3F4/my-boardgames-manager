@@ -2,16 +2,18 @@ import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
+import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
 
 import { STATUSES_MAP } from '../constans';
 
-const GamesList = ({ list, }) => (
+const GamesList = ({ list, onDelete }) => (
   <Grid style={{ padding: 24 }} container spacing={24}>
-    {list.map((game) => console.log(['game.image'], game.image) || (
-      <Grid item xs={12} sm={6} md={4} lg={3} key={game.id}>
+    {list.map((game) => (
+      <Grid item xs={12} sm={6} md={4} lg={3} key={game._id}>
         <Card>
           <CardActionArea>
             <CardMedia
@@ -30,6 +32,11 @@ const GamesList = ({ list, }) => (
               <Typography component="p">Kategoria: {game.category}</Typography>
             </CardContent>
           </CardActionArea>
+          <CardActions>
+            <Button size="small" color="primary" onClick={() => onDelete(game._id)}>
+              Usuń
+            </Button>
+          </CardActions>
         </Card>
       </Grid>
     ))}

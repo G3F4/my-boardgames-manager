@@ -14,6 +14,20 @@ const addGame = async game => {
   }
 };
 
+const deleteGame = async gameId => {
+  console.log(['api:addGame'], gameId);
+  try {
+    await GameModel.find({ _id: gameId }).remove().exec()
+
+    return gameId;
+  }
+
+  catch (error) {
+    console.error(['api:deleteGame:error'], error);
+    return error;
+  }
+};
+
 const getGames = async (sortBy, title) => {
   console.log(['api:getGames']);
   try {
@@ -26,4 +40,4 @@ const getGames = async (sortBy, title) => {
   }
 };
 
-module.exports = { addGame, getGames };
+module.exports = { addGame, deleteGame, getGames };
