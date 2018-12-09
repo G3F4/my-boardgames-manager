@@ -10,7 +10,7 @@ import Button from '@material-ui/core/Button';
 
 import { STATUSES_MAP } from '../constans';
 
-const GamesList = ({ list, onDelete }) => (
+const GamesList = ({ list, onDelete, onEdit }) => (
   <Grid style={{ padding: 24 }} container spacing={24}>
     {list.map((game) => (
       <Grid item xs={12} sm={6} md={4} lg={3} key={game._id}>
@@ -33,9 +33,8 @@ const GamesList = ({ list, onDelete }) => (
             </CardContent>
           </CardActionArea>
           <CardActions>
-            <Button size="small" color="primary" onClick={() => onDelete(game._id)}>
-              Usuń
-            </Button>
+            <Button size="small" color="primary" onClick={() => onDelete(game._id)}>Usuń</Button>
+            <Button size="small" color="primary" onClick={() => onEdit(game)}>Edytuj</Button>
           </CardActions>
         </Card>
       </Grid>

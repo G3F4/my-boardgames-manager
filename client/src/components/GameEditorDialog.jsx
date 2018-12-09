@@ -12,27 +12,27 @@ import Button from '@material-ui/core/Button';
 
 import { STATUSES_MAP } from '../constans';
 
-class NewGameDialog extends Component {
-  handleNewGameTitleChange = event => this.props.onNewGameChange('title', event.target.value);
+class GameEditorDialog extends Component {
+  handleNewGameTitleChange = event => this.props.onChange('title', event.target.value);
 
-  handleNewGameDescriptionChange = event => this.props.onNewGameChange('description', event.target.value);
+  handleNewGameDescriptionChange = event => this.props.onChange('description', event.target.value);
 
-  handleNewGamePlayersChange = event => this.props.onNewGameChange('players', event.target.value);
+  handleNewGamePlayersChange = event => this.props.onChange('players', event.target.value);
 
-  handleNewGamePublisherChange = event => this.props.onNewGameChange('publisher', event.target.value);
+  handleNewGamePublisherChange = event => this.props.onChange('publisher', event.target.value);
 
-  handleNewGameCategoryChange = event => this.props.onNewGameChange('category', event.target.value);
+  handleNewGameCategoryChange = event => this.props.onChange('category', event.target.value);
 
-  handleNewGameImageChange = event => this.props.onNewGameChange('image', event.target.value);
+  handleNewGameImageChange = event => this.props.onChange('image', event.target.value);
 
-  handleNewGameStatusChange = event => this.props.onNewGameChange('status', event.target.value);
+  handleNewGameStatusChange = event => this.props.onChange('status', event.target.value);
 
   render() {
-    const { open, newGame, onCloseDialog, onNewGameAdd } = this.props;
-    const { title ='', description ='', category ='', publisher ='', players ='', image ='', status ='' } = newGame;
+    const { open, game, onClose, onSave } = this.props;
+    const { title ='', description ='', category ='', publisher ='', players ='', image ='', status ='' } = game;
 
     return (
-      <Dialog open={open} onClose={onCloseDialog}>
+      <Dialog open={open} onClose={onClose}>
         <DialogTitle>Dodaj nową pozycję</DialogTitle>
         <DialogContent>
           <TextField value={title} label="Tytuł" onChange={this.handleNewGameTitleChange} autoFocus fullWidth />
@@ -55,12 +55,12 @@ class NewGameDialog extends Component {
           </FormControl>
         </DialogContent>
         <DialogActions>
-          <Button onClick={onCloseDialog} color="secondary">Anuluj</Button>
-          <Button onClick={onNewGameAdd} color="primary">Dodaj</Button>
+          <Button onClick={onClose} color="secondary">Anuluj</Button>
+          <Button onClick={onSave} color="primary">Zapisz</Button>
         </DialogActions>
       </Dialog>
     );
   }
 }
 
-export default NewGameDialog;
+export default GameEditorDialog;
