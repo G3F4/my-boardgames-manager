@@ -8,6 +8,8 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import SearchIcon from '@material-ui/icons/Search';
 
 const Header = ({ sortBy, title, onSortByChange, onTitleFilterChange, onOpenAddDialog }) => (
   <AppBar position="static" color="default">
@@ -29,6 +31,13 @@ const Header = ({ sortBy, title, onSortByChange, onTitleFilterChange, onOpenAddD
         style={{ width: 150, marginLeft: 24 }}
         label="Tytuł"
         onChange={onTitleFilterChange}
+        InputProps={{
+          startAdornment: (
+            <InputAdornment position="start">
+              <SearchIcon />
+            </InputAdornment>
+          ),
+        }}
       />
       <Fab color="secondary" style={{ position: 'absolute', right: 0, marginRight: 24 }}>
         <AddIcon onClick={onOpenAddDialog}/>

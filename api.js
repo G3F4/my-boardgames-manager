@@ -43,7 +43,7 @@ const editGame = async (gameId, game) => {
 const getGames = async (sortBy, title) => {
   console.log(['api:getGames']);
   try {
-    return await GameModel.find({ title: new RegExp(`^${title}`)}).sort({ [sortBy || '_id'] : -1 });
+    return await GameModel.find({ title: new RegExp(`${title}`)}).sort({ [sortBy || '_id'] : -1 });
   }
 
   catch (error) {
