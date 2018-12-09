@@ -52,4 +52,16 @@ const getGames = async (sortBy, title) => {
   }
 };
 
-module.exports = { addGame, deleteGame, editGame, getGames };
+const getGame = async id => {
+  console.log(['api:getGames']);
+  try {
+    return await GameModel.findOne({ _id: id });
+  }
+
+  catch (error) {
+    console.error(['api:getGames:error'], error);
+    return error;
+  }
+};
+
+module.exports = { addGame, deleteGame, editGame, getGame, getGames };

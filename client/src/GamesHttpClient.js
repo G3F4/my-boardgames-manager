@@ -31,6 +31,18 @@ class GamesHttpClient {
     }
   }
 
+  async readOne(id) {
+    try {
+      const response = await fetch(`${this.url}/${id}`);
+
+      return response.json();
+    }
+
+    catch (e) {
+      console.error(e);
+    }
+  }
+
   async update(id, game) {
     try {
       const response = await fetch(`${this.url}/${id}`, {

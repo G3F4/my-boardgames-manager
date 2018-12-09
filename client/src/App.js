@@ -3,6 +3,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 
 import Header from './components/Header';
 import GameEditorDialog from './components/GameEditorDialog';
+import GameDetailsDialog from './components/GameDetailsDialog';
 import GamesList from './components/GamesList';
 import GamesHttpClient from './GamesHttpClient';
 
@@ -14,6 +15,7 @@ class App extends Component {
     sortBy: '',
     title: '',
     editorOpen: false,
+    detailsOpen: false,
     editing: false,
     game: {},
   };
@@ -50,10 +52,6 @@ class App extends Component {
     this.fetchList(this.state.sortBy, title);
   };
 
-  handleOpenAddDialog = () => this.setState({ editorOpen: true });
-
-  handleCloseAddDialog = () => this.setState({ editorOpen: false, game: {}, editing: false });
-
   handleGameChange = (key, value) => {
     this.setState({
       game: {
@@ -62,6 +60,12 @@ class App extends Component {
       }
     });
   };
+
+  handleOpenAddDialog = () => this.setState({ editorOpen: true });
+
+  handleCloseAddDialog = () => this.setState({ editorOpen: false, game: {}, editing: false });
+
+  handleCloseDetailsDialog = () => this.setState({ detailsOpen: false, game: {} });
 
   handleGameEdit = async editedGame => {
     this.setState({
@@ -113,6 +117,21 @@ class App extends Component {
     }
   };
 
+  handleGameDetails = async gameId => {
+    try {
+      const game = await httpClient.readOne(gameId);
+
+      this.setState({
+        game,
+        detailsOpen: true,
+      })
+    }
+
+    catch (error) {
+      console.error(error)
+    }
+  };
+
   render() {
     if (!this.state.data || !this.state.data.list) {
       return (
@@ -138,9 +157,17 @@ class App extends Component {
           onSave={editing ? this.handleEditedGameSave : this.handleNewGameSave}
           onChange={this.handleGameChange}
         />
+        <GameDetailsDialog
+          open={this.state.detailsOpen}
+          game={this.state.game}
+          onClose={this.handleCloseDetailsDialog}
+          onDelete={this.handleGameDelete}
+          onEdit={this.handleGameEdit}
+        />
         <GamesList
           list={this.state.data.list}
           onDelete={this.handleGameDelete}
+          onDetails={this.handleGameDetails}
           onEdit={this.handleGameEdit}
         />
       </div>

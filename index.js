@@ -3,7 +3,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 
 require('./dbConnect');
-const { addGame, deleteGame, editGame, getGames } = require('./api');
+const { addGame, deleteGame, editGame, getGame, getGames } = require('./api');
 
 const app = express();
 
@@ -19,6 +19,13 @@ app.get('/games', async (req, res) => {
 
   res.setHeader('Content-Type', 'application/json');
   res.send(JSON.stringify({ list }));
+});
+
+app.get('/games/:gameId', async (req, res) => {
+  const game = await getGame(req.params.gameId);
+
+  res.setHeader('Content-Type', 'application/json');
+  res.send(JSON.stringify(game));
 });
 
 app.post('/games', async (req, res) => {
