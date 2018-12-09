@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const data = require('./data');
 const getData = (sortBy, title) => ({
   list: data.list
-    .filter(item => item.title.toLowerCase().startsWith(title.toLowerCase()))
+    .filter(item => (item.title || '').toLowerCase().startsWith(title.toLowerCase()))
     .sort((a, b) => {
       const aValue = a[sortBy];
       const bValue = b[sortBy];
