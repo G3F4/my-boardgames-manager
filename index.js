@@ -17,30 +17,26 @@ app.get('/games', async (req, res) => {
   const title = req.query.title;
   const list = await getGames(sortBy, title);
 
-  res.setHeader('Content-Type', 'application/json');
-  res.send(JSON.stringify({ list }));
+  res.json({ list });
 });
 
 app.get('/games/:gameId', async (req, res) => {
   const game = await getGame(req.params.gameId);
 
-  res.setHeader('Content-Type', 'application/json');
-  res.send(JSON.stringify(game));
+  res.json(game);
 });
 
 app.post('/games', async (req, res) => {
   const { game } = req.body;
   const addedGame = await addGame(game);
 
-  res.setHeader('Content-Type', 'application/json');
-  res.send(JSON.stringify({ addedGameId: addedGame._id }));
+  res.json({ addedGameId: addedGame._id });
 });
 
 app.delete('/games/:gameId', async (req, res) => {
   const deletedGameId = await deleteGame(req.params.gameId);
 
-  res.setHeader('Content-Type', 'application/json');
-  res.send(JSON.stringify({ deletedGameId }));
+  res.json({ deletedGameId });
 });
 
 
@@ -49,8 +45,7 @@ app.patch('/games/:gameId', async (req, res) => {
 
   await editGame(req.params.gameId, game);
 
-  res.setHeader('Content-Type', 'application/json');
-  res.send(JSON.stringify({ game }));
+  res.json({ game });
 });
 
 app.listen(3000);
